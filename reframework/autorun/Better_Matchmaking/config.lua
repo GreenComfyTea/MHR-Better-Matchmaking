@@ -14,7 +14,7 @@ function config.init()
 			quest_types = {
 				regular = true,
 				random = true,
-				rampage = false,
+				rampage = true,
 				random_master_rank = true,
 				random_anomaly = true
 			}
