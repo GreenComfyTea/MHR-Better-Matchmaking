@@ -6,6 +6,7 @@ local native_customization_menu = require("Better_Matchmaking.native_customizati
 
 local timeout_fix = require("Better_Matchmaking.timeout_fix");
 local region_lock_fix = require("Better_Matchmaking.region_lock_fix");
+local misc_fixes = require("Better_Matchmaking.misc_fixes");
 
 table_helpers.init_module();
 config.init_module();
@@ -15,6 +16,7 @@ native_customization_menu.init_module();
 
 timeout_fix.init_module();
 region_lock_fix.init_module();
+misc_fixes.init_module();
 
 log.info("[Better Matchmaking] loaded");
 

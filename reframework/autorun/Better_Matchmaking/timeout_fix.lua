@@ -43,8 +43,6 @@ local req_matchmaking_hyakuryu_method = session_manager_type_def:get_method("req
 local req_matchmaking_random_master_rank_method = session_manager_type_def:get_method("reqMatchmakingAutoJoinSessionRandomMasterRank");
 local req_matchmaking_random_mystery_method = session_manager_type_def:get_method("reqMatchmakingAutoJoinSessionRandomMystery");
 
-local req_online_warning = session_manager_type_def:get_method("reqOnlineWarning");
-
 local nullable_uint32_type_def = sdk.find_type_definition("System.Nullable`1<System.UInt32>");
 local nullable_uint32_get_value_method = nullable_uint32_type_def:get_method("get_Value");
 local nullable_uint32_constructor_method = nullable_uint32_type_def:get_method(".ctor(System.UInt32)");
@@ -150,10 +148,6 @@ local function on_req_online()
 	return sdk.PreHookResult.SKIP_ORIGINAL;
 end
 
-local matchmaking_type_def = sdk.find_type_definition("via.network.Matchmaking");
-local get_disuse_show_error_method = matchmaking_type_def:get_method("get_DisuseShowError");
-local set_disuse_show_error_method = matchmaking_type_def:get_method("set_DisuseShowError");
-
 function timeout_fix.init_module()
 	config = require("Better_Matchmaking.config");
 	table_helpers = require("Better_Matchmaking.table_helpers");
@@ -194,18 +188,6 @@ function timeout_fix.init_module()
 			sdk.to_int64(args[4]) & 0xFFFFFFFF);
 	end, function(retval)
 		return retval;
-	end);
-
-	sdk.hook(req_online_warning, function(args) 
-		return on_req_online();
-	end, function(retval)
-		return retval;
-	end);
-
-	sdk.hook(get_disuse_show_error_method, function(args) 
-	end, function(retval)
-		xy = tostring((sdk.to_int64(retval) & 1) == 1);
-		return true;--retval;
 	end);
 end
 

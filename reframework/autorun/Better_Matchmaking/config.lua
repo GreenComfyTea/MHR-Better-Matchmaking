@@ -27,8 +27,9 @@ function config.init()
 		hide_network_errors = {
 			enabled = true,
 			when_to_hide = {
-				outside_quests = false,
-				on_quests = true
+				on_quests = true,
+				outside_quests = false
+				
 			}
 		},
 
