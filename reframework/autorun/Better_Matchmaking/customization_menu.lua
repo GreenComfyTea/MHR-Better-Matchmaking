@@ -71,7 +71,7 @@ function customization_menu.draw()
 		imgui.tree_pop();
 	end
 
-	if imgui.tree_node("Region Lock Fix") then
+	if imgui.tree_node("Region Lock Fix (Join Requests)") then
 		changed, config.current_config.region_lock_fix.enabled = imgui.checkbox(
 			"Enabled", config.current_config.region_lock_fix.enabled);
 		config_changed = config_changed or changed;
