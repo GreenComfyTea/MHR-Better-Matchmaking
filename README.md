@@ -1,5 +1,7 @@
 # "Better Matchmaking" Mod for Monster Hunter: Rise
 
+Mod for Monster Hunter Rise that fixed Region Lock and improves matchmaking experience. 
+
 # Links
 * **[Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/1044)**  
 
