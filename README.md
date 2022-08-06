@@ -1,4 +1,4 @@
-# Monster Hunter Rise Better Matchmaking Mod
+# "Better Matchmaking" Mod for Monster Hunter: Rise
 
 # Links
 * **[Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/1044)**  
@@ -11,8 +11,8 @@
 1. Install [REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26);
 1. [Optional] Install [[Custom In-Game Mod Menu API](https://www.nexusmods.com/monsterhunterrise/mods/1292);
 3. Download the mod:
-    * Official release can be downloaded from [Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/50);
-    * Nightly builds are available in [this repo](https://github.com/GreenComfyTea/MHR-Overlay) and can contain broken functionality, debugging info on screen, bugs and might require the latest [nightly build](https://github.com/praydog/REFramework-nightly/releases) of [REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26). Use with caution!
+    * Official release can be downloaded from [Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/1044);
+    * Nightly builds are available in [this repo](https://github.com/GreenComfyTea/MHR-Better-Matchmaking) and can contain broken functionality, debugging info on screen, bugs and might require the latest [nightly build](https://github.com/praydog/REFramework-nightly/releases) of [REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26). Use with caution!
 4. Extract the mod from the archive and place it in MonsterHunterRise folder.
 
 # Credits
