@@ -27,10 +27,22 @@ local quest_types = {
 		my_hunter_rank = 0,
 		my_master_rank = 0
 	},
+
 	random_anomaly = {
 		my_hunter_rank = 0,
 		my_master_rank = 0
+	},
+	--snow.SnowSessionManager.reqMatchmakingAutoJoinSessionRandomMysteryQuest(System.UInt32, System.UInt32, System.UInt32, System.Nullable`1<System.UInt32>)
+	anomaly_investigation = {
+		min_level = 1,
+		max_level = 1,
+		party_limit = 4,
+		enemy_id = {
+			value = 0,
+			has_value = false
+		}
 	}
+
 };
 local quest_type = quest_types.invalid;
 
@@ -42,6 +54,7 @@ local req_matchmaking_random_method = session_manager_type_def:get_method("reqMa
 local req_matchmaking_hyakuryu_method = session_manager_type_def:get_method("reqMatchmakingAutoJoinSessionHyakuryu");
 local req_matchmaking_random_master_rank_method = session_manager_type_def:get_method("reqMatchmakingAutoJoinSessionRandomMasterRank");
 local req_matchmaking_random_mystery_method = session_manager_type_def:get_method("reqMatchmakingAutoJoinSessionRandomMystery");
+local req_matchmaking_random_mystery_quest_method = session_manager_type_def:get_method("reqMatchmakingAutoJoinSessionRandomMysteryQuest");
 
 local nullable_uint32_type_def = sdk.find_type_definition("System.Nullable`1<System.UInt32>");
 local nullable_uint32_get_value_method = nullable_uint32_type_def:get_method("get_Value");
@@ -96,6 +109,15 @@ local function on_post_timeout_matchmaking()
 		if timeout_fix_config.quest_types.random_anomaly then
 			req_matchmaking_random_mystery_method:call(session_manager, quest_type.my_hunter_rank, quest_type.my_master_rank);
 		end
+	elseif quest_type == quest_types.anomaly_investigation then
+		if timeout_fix_config.quest_types.anomaly_investigation then
+			
+			local enemy_id_pointer = ValueType.new(nullable_uint32_type_def);
+			nullable_uint32_constructor_method:call(enemy_id_pointer, quest_type.enemy_id.value);
+			enemy_id_pointer:set_field("_HasValue", quest_type.enemy_id.has_value);
+
+			req_matchmaking_random_mystery_quest_method:call(session_manager, quest_type.min_level, quest_type.max_level, quest_type.party_limit, enemy_id_pointer);
+		end
 	end
 end
 
@@ -140,6 +162,21 @@ local function on_req_matchmaking_random_anomaly(my_hunter_rank, my_master_rank)
 	quest_type.my_master_rank = my_master_rank;
 end
 
+local function on_req_matchmaking_random_anomaly_quest(min_level, max_level, party_limit, enemy_id_pointer)
+	quest_type = quest_types.anomaly_investigation;
+	quest_type.min_level = min_level;
+	quest_type.max_level = max_level;
+	quest_type.party_limit = party_limit;
+
+	local enemy_id_pointer_int = sdk.to_int64(enemy_id_pointer);
+
+	quest_type.enemy_id.has_value = enemy_id_pointer_int > 0;
+
+	if quest_type.enemy_id.has_value then
+		quest_type.enemy_id.value = nullable_uint32_get_value_method(enemy_id_pointer);
+	end
+end
+
 local function on_req_online()
 	if not config.current_config.hide_online_warning.enabled then
 		return;
@@ -148,44 +185,85 @@ local function on_req_online()
 	return sdk.PreHookResult.SKIP_ORIGINAL;
 end
 
+local network_util_type_def = sdk.find_type_definition("snow.network.Util");
+local get_re_and_lib_version_method = network_util_type_def:get_method("getReAndLibVersion");
+local tostring_error_method = network_util_type_def:get_method("toString_Error(via.network.Error)");
+
+local make_error_code_method = session_manager_type_def:get_method("makeErrorCode(via.network.Error)");
+
 function timeout_fix.init_module()
 	config = require("Better_Matchmaking.config");
 	table_helpers = require("Better_Matchmaking.table_helpers");
 
+	--sdk.hook(make_error_code_method, function(args)
+	--	local error_code = sdk.to_managed_object(args[3]);
+	--	xy = "valid: " .. tostring(error_code:call("get_Valid"));
+	--	xy = xy .. "\nnative user id: " .. tostring(error_code:call("get_NativeUserId"));
+	--	xy = xy .. "\nlevel: " .. tostring(error_code:call("get_Level"));
+	--	xy = xy .. "\nservice: " .. tostring(error_code:call("get_Service"));
+	--	xy = xy .. "\nmethod: " .. tostring(error_code:call("get_Method"));
+	--	xy = xy .. "\ncause: " .. tostring(error_code:call("get_Cause"));
+	--	xy = xy .. "\nno: " .. tostring(error_code:call("get_No"));
+	--	xy = xy .. "\nsub: " .. tostring(error_code:call("get_Sub"));
+	--	xy = xy .. "\nnative: " .. tostring(error_code:call("get_Native"));
+	--
+	--end,
+	--function(retval)
+	--	xy = xy .. "\n" .. tostring(sdk.to_managed_object(retval):call("ToString"));
+	--	return retval;
+	--end);
+
 	sdk.hook(on_timeout_matchmaking_method, function(args) end,
-		function(retval)
-			on_post_timeout_matchmaking();
-			return retval;
-		end);
+	function(retval)
+		on_post_timeout_matchmaking();
+		return retval;
+	end);
 
 	sdk.hook(req_matchmaking_method, function(args)
-		on_req_matchmaking(sdk.to_int64(args[3]) & 0xFFFFFFFF);
+		on_req_matchmaking(
+			sdk.to_int64(args[3]) & 0xFFFFFFFF);
 	end, function(retval)
 		return retval;
 	end);
 
 	sdk.hook(req_matchmaking_random_method, function(args)
-		on_req_matchmaking_random(sdk.to_int64(args[3]) & 0xFFFFFFFF);
+		on_req_matchmaking_random(
+			sdk.to_int64(args[3]) & 0xFFFFFFFF);
 	end, function(retval)
 		return retval;
 	end);
 
 	sdk.hook(req_matchmaking_hyakuryu_method, function(args)
-		on_req_matchmaking_rampage(sdk.to_int64(args[3]), args[4], args[5]);
+		on_req_matchmaking_rampage(
+			sdk.to_int64(args[3]),
+			args[4],
+			args[5]);
 	end, function(retval)
 		return retval;
 	end);
 
 	sdk.hook(req_matchmaking_random_master_rank_method, function(args)
-		on_req_matchmaking_random_master_rank(sdk.to_int64(args[3]) & 0xFFFFFFFF,
+		on_req_matchmaking_random_master_rank(
+			sdk.to_int64(args[3]) & 0xFFFFFFFF,
 			sdk.to_int64(args[4]) & 0xFFFFFFFF);
 	end, function(retval)
 		return retval;
 	end);
 
 	sdk.hook(req_matchmaking_random_mystery_method, function(args)
-		on_req_matchmaking_random_anomaly(sdk.to_int64(args[3]) & 0xFFFFFFFF,
+		on_req_matchmaking_random_anomaly(
+			sdk.to_int64(args[3]) & 0xFFFFFFFF,
 			sdk.to_int64(args[4]) & 0xFFFFFFFF);
+	end, function(retval)
+		return retval;
+	end);
+
+	sdk.hook(req_matchmaking_random_mystery_quest_method, function(args)
+		on_req_matchmaking_random_anomaly_quest(
+			sdk.to_int64(args[3]) & 0xFFFFFFFF,
+			sdk.to_int64(args[4]) & 0xFFFFFFFF,
+			sdk.to_int64(args[5]) & 0xFFFFFFFF,
+			args[6]);
 	end, function(retval)
 		return retval;
 	end);

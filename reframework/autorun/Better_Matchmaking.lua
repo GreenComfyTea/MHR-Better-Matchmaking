@@ -18,7 +18,7 @@ timeout_fix.init_module();
 region_lock_fix.init_module();
 misc_fixes.init_module();
 
-log.info("[Better Matchmaking] loaded");
+log.info("[Better Matchmaking] Loaded.");
 
 re.on_draw_ui(function()
 	if imgui.button("Better Matchmaking " .. config.current_config.version) then

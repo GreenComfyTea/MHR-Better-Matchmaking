@@ -65,6 +65,10 @@ function customization_menu.draw()
 				"Random Anomaly", config.current_config.timeout_fix.quest_types.random_anomaly);
 			config_changed = config_changed or changed;
 
+			changed, config.current_config.timeout_fix.quest_types.anomaly_investigation = imgui.checkbox(
+				"Anomaly Investigation", config.current_config.timeout_fix.quest_types.anomaly_investigation);
+			config_changed = config_changed or changed;
+
 			imgui.tree_pop();
 		end
 

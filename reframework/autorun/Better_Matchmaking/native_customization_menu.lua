@@ -40,42 +40,50 @@ end
 function native_customization_menu.draw()
 	local changed = false;
 	local config_changed = false;
-	local index = false; 
+	local index = 1; 
 
 	mod_menu.Label("Created by: <COL RED>GreenComfyTea</COL>", "",
 		"Donate: <COL RED>https://streamelements.com/greencomfytea/tip</COL>\nBuy me a tea: <COL RED>https://ko-fi.com/greencomfytea</COL>\nSometimes I stream: <COL RED>twitch.tv/greencomfytea</COL>");
 
+
+
+
+
+
 	mod_menu.Header("Timeout Fix");
 
-	changed, config.current_config.timeout_fix.enabled = mod_menu.Toggle(
-		"Enabled", config.current_config.timeout_fix.enabled, "Enable/Disable Timeout Fix.");
+	changed, config.current_config.timeout_fix.enabled = mod_menu.CheckBox("Enabled", config.current_config.timeout_fix.enabled, "Enable/Disable Timeout Fix.");
 	config_changed = config_changed or changed;
-	
+
 	if mod_menu.Button("<COL YEL>Quest Types</COL>", "", false, "Show/Hide Options to enable Timeout Fix for Specific Quest Types.") then
 		native_customization_menu.show_quest_types = not native_customization_menu.show_quest_types;
---
+		
 		mod_menu.Repaint();
 	end
 
 	if native_customization_menu.show_quest_types then
-		changed, config.current_config.timeout_fix.quest_types.regular = mod_menu.Toggle(
+		changed, config.current_config.timeout_fix.quest_types.regular = mod_menu.CheckBox(
 			"Regular", config.current_config.timeout_fix.quest_types.regular, "Enable/Disable Timeout Fix for Regular Quests.");
 		config_changed = config_changed or changed;
 
-		changed, config.current_config.timeout_fix.quest_types.rampage = mod_menu.Toggle(
+		changed, config.current_config.timeout_fix.quest_types.rampage = mod_menu.CheckBox(
 			"Rampage", config.current_config.timeout_fix.quest_types.rampage, "Enable/Disable Timeout Fix for Rampage Quests.");
 		config_changed = config_changed or changed;
 
-		changed, config.current_config.timeout_fix.quest_types.random = mod_menu.Toggle(
+		changed, config.current_config.timeout_fix.quest_types.random = mod_menu.CheckBox(
 			"Random", config.current_config.timeout_fix.quest_types.random, "Enable/Disable Timeout Fix for Random LR/HR Quests.");
 		config_changed = config_changed or changed;
 
-		changed, config.current_config.timeout_fix.quest_types.random_master_rank = mod_menu.Toggle(
+		changed, config.current_config.timeout_fix.quest_types.random_master_rank = mod_menu.CheckBox(
 			"Random MR", config.current_config.timeout_fix.quest_types.random_master_rank, "Enable/Disable Timeout Fix for Random MR Quests.");
 		config_changed = config_changed or changed;
 
-		changed, config.current_config.timeout_fix.quest_types.random_anomaly  = mod_menu.Toggle(
-			"Random Anomaly", config.current_config.timeout_fix.quest_types.random_anomaly, "Enable/Disable Timeout Fix for Random Anomaly\nQuests.");
+		changed, config.current_config.timeout_fix.quest_types.random_anomaly  = mod_menu.CheckBox(
+			"Random Anomaly", config.current_config.timeout_fix.quest_types.random_anomaly, "Enable/Disable Timeout Fix for Random Anomaly Quests.");
+		config_changed = config_changed or changed;
+
+		changed, config.current_config.timeout_fix.quest_types.anomaly_investigation  = mod_menu.CheckBox(
+			"Anomaly Investigation", config.current_config.timeout_fix.quest_types.anomaly_investigation, "Enable/Disable Timeout Fix for Random Anomaly Quests.");
 		config_changed = config_changed or changed;
 	end
 
@@ -85,7 +93,7 @@ function native_customization_menu.draw()
 
 	mod_menu.Header("Region Lock Fix (Join Requests)");
 
-	changed, config.current_config.region_lock_fix.enabled = mod_menu.Toggle(
+	changed, config.current_config.region_lock_fix.enabled = mod_menu.CheckBox(
 		"Enabled", config.current_config.region_lock_fix.enabled, "Enable/Disable Region Lock Fix for Join Requests.");
 	config_changed = config_changed or changed;
 
@@ -108,7 +116,7 @@ function native_customization_menu.draw()
 
 	mod_menu.Header("Hide Network Errors");
 
-	changed, config.current_config.hide_network_errors.enabled = mod_menu.Toggle(
+	changed, config.current_config.hide_network_errors.enabled = mod_menu.CheckBox(
 		"Enabled", config.current_config.hide_network_errors.enabled, "Enable/Disable hiding Network Error messages.");
 	config_changed = config_changed or changed;
 
@@ -120,11 +128,11 @@ function native_customization_menu.draw()
 	end
 
 	if native_customization_menu.show_when_to_hide_options then
-		changed, config.current_config.hide_network_errors.when_to_hide.on_quests = mod_menu.Toggle(
+		changed, config.current_config.hide_network_errors.when_to_hide.on_quests = mod_menu.CheckBox(
 			"On Quests", config.current_config.hide_network_errors.when_to_hide.on_quests, "Enable/Disable hiding Network Error messages on quests.");
 		config_changed = config_changed or changed;
 
-		changed, config.current_config.hide_network_errors.when_to_hide.outside_quests = mod_menu.Toggle(
+		changed, config.current_config.hide_network_errors.when_to_hide.outside_quests = mod_menu.CheckBox(
 			"Outside Quests", config.current_config.hide_network_errors.when_to_hide.outside_quests, "Enable/Disable hiding Network Error messages outside quests.");
 		config_changed = config_changed or changed;
 	end
@@ -135,7 +143,7 @@ function native_customization_menu.draw()
 
 	mod_menu.Header("Misc");
 	
-	changed, config.current_config.hide_online_warning.enabled = mod_menu.Toggle(
+	changed, config.current_config.hide_online_warning.enabled = mod_menu.CheckBox(
 		"Hide Online Warning", config.current_config.hide_online_warning.enabled, "Hide/Show Online Warning message.");
 	config_changed = config_changed or changed;
 

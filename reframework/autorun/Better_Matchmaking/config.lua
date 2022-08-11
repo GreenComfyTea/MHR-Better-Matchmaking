@@ -16,7 +16,8 @@ function config.init()
 				random = true,
 				rampage = true,
 				random_master_rank = true,
-				random_anomaly = true
+				random_anomaly = true,
+				anomaly_investigation = true
 			}
 		},
 
