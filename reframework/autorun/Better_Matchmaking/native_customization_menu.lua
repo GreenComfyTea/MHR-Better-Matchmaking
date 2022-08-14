@@ -62,6 +62,9 @@ function native_customization_menu.draw()
 	end
 
 	if native_customization_menu.show_quest_types then
+		mod_menu.IncreaseIndent();
+		mod_menu.IncreaseIndent();
+
 		changed, config.current_config.timeout_fix.quest_types.regular = mod_menu.CheckBox(
 			"Regular", config.current_config.timeout_fix.quest_types.regular, "Enable/Disable Timeout Fix for Regular Quests.");
 		config_changed = config_changed or changed;
@@ -85,6 +88,9 @@ function native_customization_menu.draw()
 		changed, config.current_config.timeout_fix.quest_types.anomaly_investigation  = mod_menu.CheckBox(
 			"Anomaly Investigation", config.current_config.timeout_fix.quest_types.anomaly_investigation, "Enable/Disable Timeout Fix for Random Anomaly Quests.");
 		config_changed = config_changed or changed;
+
+		mod_menu.DecreaseIndent();
+		mod_menu.DecreaseIndent();
 	end
 
 
@@ -128,6 +134,9 @@ function native_customization_menu.draw()
 	end
 
 	if native_customization_menu.show_when_to_hide_options then
+		mod_menu.IncreaseIndent();
+		mod_menu.IncreaseIndent();
+
 		changed, config.current_config.hide_network_errors.when_to_hide.on_quests = mod_menu.CheckBox(
 			"On Quests", config.current_config.hide_network_errors.when_to_hide.on_quests, "Enable/Disable hiding Network Error messages on quests.");
 		config_changed = config_changed or changed;
@@ -135,6 +144,9 @@ function native_customization_menu.draw()
 		changed, config.current_config.hide_network_errors.when_to_hide.outside_quests = mod_menu.CheckBox(
 			"Outside Quests", config.current_config.hide_network_errors.when_to_hide.outside_quests, "Enable/Disable hiding Network Error messages outside quests.");
 		config_changed = config_changed or changed;
+
+		mod_menu.DecreaseIndent();
+		mod_menu.DecreaseIndent();
 	end
 
 
