@@ -28,9 +28,9 @@ Mod for Monster Hunter Rise that fixed Region Lock and improves matchmaking expe
 You can support me by donating! I would appreciate it! But anyway, thank you for using this mod!
 
  <a href="https://streamelements.com/greencomfytea/tip">
-  <img alt="Qries" src="https://panels-images.twitch.tv/panel-48897356-image-c6155d48-b689-4240-875c-f3141355cb56">
+  <img alt="Qries" src="https://panels.twitch.tv/panel-48897356-image-c6155d48-b689-4240-875c-f3141355cb56">
 </a>
 <a href="https://ko-fi.com/greencomfytea">
-  <img alt="Qries" src="https://panels-images.twitch.tv/panel-48897356-image-c2fcf835-87e4-408e-81e8-790789c7acbc">
+  <img alt="Qries" src="https://panels.twitch.tv/panel-48897356-image-c2fcf835-87e4-408e-81e8-790789c7acbc">
 </a>
 
