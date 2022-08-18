@@ -25,7 +25,7 @@ function customization_menu.draw()
 	imgui.set_next_window_size(customization_menu.window_size, 1 << 3);
 
 	customization_menu.is_opened = imgui.begin_window(
-		"Better Matchmaking" .. " " .. config.current_config.version, customization_menu.is_opened, customization_menu.window_flags);
+		"Better Matchmaking v" .. config.current_config.version, customization_menu.is_opened, customization_menu.window_flags);
 
 	if not customization_menu.is_opened then
 		imgui.end_window();
@@ -37,7 +37,7 @@ function customization_menu.draw()
 
 	local config_changed = false;
 	local changed = false;
-	local index = false;
+	local index = 1;
 
 	if imgui.tree_node("Timeout Fix") then
 		changed, config.current_config.timeout_fix.enabled = imgui.checkbox(

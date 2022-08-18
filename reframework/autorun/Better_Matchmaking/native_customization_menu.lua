@@ -44,7 +44,8 @@ function native_customization_menu.draw()
 
 	mod_menu.Label("Created by: <COL RED>GreenComfyTea</COL>", "",
 		"Donate: <COL RED>https://streamelements.com/greencomfytea/tip</COL>\nBuy me a tea: <COL RED>https://ko-fi.com/greencomfytea</COL>\nSometimes I stream: <COL RED>twitch.tv/greencomfytea</COL>");
-
+		mod_menu.Label("Version: <COL RED>" .. config.current_config.version .. "</COL>", "",
+		"Donate: <COL RED>https://streamelements.com/greencomfytea/tip</COL>\nBuy me a tea: <COL RED>https://ko-fi.com/greencomfytea</COL>\nSometimes I stream: <COL RED>twitch.tv/greencomfytea</COL>");
 
 
 

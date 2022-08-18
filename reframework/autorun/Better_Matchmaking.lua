@@ -21,7 +21,7 @@ misc_fixes.init_module();
 log.info("[Better Matchmaking] Loaded.");
 
 re.on_draw_ui(function()
-	if imgui.button("Better Matchmaking " .. config.current_config.version) then
+	if imgui.button("Better Matchmaking v" .. config.current_config.version) then
 		customization_menu.is_opened = not customization_menu.is_opened;
 	end
 end);

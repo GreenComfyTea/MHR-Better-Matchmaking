@@ -67,7 +67,7 @@ function config.init_module()
 
 	config.init();
 	config.load();
-	config.current_config.version = "v2.3.1";
+	config.current_config.version = "2.3.1";
 end
 
 return config;
