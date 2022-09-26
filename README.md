@@ -8,8 +8,8 @@ Mod for Monster Hunter Rise that fixed Region Lock and improves matchmaking expe
 * **[Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/1044)**  
 
 # Requirements
-1. [LATEST REFRAMEWORK NIGHTLY BUILD](https://github.com/praydog/REFramework-nightly/releases) (v1.3.5? or above);
-2. [Optional] [Custom In-Game Mod Menu API](https://www.nexusmods.com/monsterhunterrise/mods/1292) (v1.7 or above).
+1. [REFramework]([https://github.com/praydog/REFramework-nightly/releases](https://www.nexusmods.com/monsterhunterrise/mods/26)) (v1.3.5 or newer);
+2. [Optional] [Custom In-Game Mod Menu API](https://www.nexusmods.com/monsterhunterrise/mods/1292) (v1.7 or newer).
 
 # How to install:
 1. Install [REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26);
