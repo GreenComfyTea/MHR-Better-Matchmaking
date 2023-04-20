@@ -1,4 +1,5 @@
 local this = {};
+local version = "2.3.2";
 
 local utils;
 
@@ -95,12 +96,17 @@ function this.save()
 	end
 end
 
+function this.reset()
+	this.current_config = utils.table.deep_copy(this.default_config);
+	this.current_config.version = version;
+end
+
 function this.init_module()
 	utils = require("Better_Matchmaking.utils");
 
 	this.init();
 	this.load();
-	this.current_config.version = "2.3.2";
+	this.current_config.version = version;
 end
 
 return this;
