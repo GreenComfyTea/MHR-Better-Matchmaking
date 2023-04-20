@@ -79,8 +79,7 @@ function this.on_set_open_network_error_window_selection(gui_manager)
 	local is_play_quest = is_play_quest_method:call(quest_manager);
 	local is_end_wait = is_end_wait_method:call(quest_manager);
 
-	if is_end_wait == nil
-	or is_play_quest == nil then
+	if is_end_wait == nil or is_play_quest == nil then
 		return;
 	end
 
