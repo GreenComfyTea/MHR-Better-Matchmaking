@@ -1,4 +1,36 @@
-local table_helpers = require("Better_Matchmaking.table_helpers");
+local sdk = sdk;
+local tostring = tostring;
+local pairs = pairs;
+local ipairs = ipairs;
+local tonumber = tonumber;
+local require = require;
+local pcall = pcall;
+local table = table;
+local string = string;
+local Vector3f = Vector3f;
+local d2d = d2d;
+local math = math;
+local json = json;
+local log = log;
+local fs = fs;
+local next = next;
+local type = type;
+local setmetatable = setmetatable;
+local getmetatable = getmetatable;
+local assert = assert;
+local select = select;
+local coroutine = coroutine;
+local utf8 = utf8;
+local re = re;
+local imgui = imgui;
+local draw = draw;
+local Vector2f = Vector2f;
+local reframework = reframework;
+local os = os;
+local ValueType = ValueType;
+local package = package;
+
+local utils = require("Better_Matchmaking.utils");
 local config = require("Better_Matchmaking.config");
 
 local customization_menu = require("Better_Matchmaking.customization_menu");
@@ -8,7 +40,7 @@ local timeout_fix = require("Better_Matchmaking.timeout_fix");
 local region_lock_fix = require("Better_Matchmaking.region_lock_fix");
 local misc_fixes = require("Better_Matchmaking.misc_fixes");
 
-table_helpers.init_module();
+utils.init_module();
 config.init_module();
 
 customization_menu.init_module();

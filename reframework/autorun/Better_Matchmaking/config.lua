@@ -1,13 +1,46 @@
-local config = {};
-local table_helpers;
+local this = {};
 
-config.current_config = nil;
-config.config_file_name = "Better Matchmaking/config.json";
+local utils;
 
-config.default_config = {};
+local sdk = sdk;
+local tostring = tostring;
+local pairs = pairs;
+local ipairs = ipairs;
+local tonumber = tonumber;
+local require = require;
+local pcall = pcall;
+local table = table;
+local string = string;
+local Vector3f = Vector3f;
+local d2d = d2d;
+local math = math;
+local json = json;
+local log = log;
+local fs = fs;
+local next = next;
+local type = type;
+local setmetatable = setmetatable;
+local getmetatable = getmetatable;
+local assert = assert;
+local select = select;
+local coroutine = coroutine;
+local utf8 = utf8;
+local re = re;
+local imgui = imgui;
+local draw = draw;
+local Vector2f = Vector2f;
+local reframework = reframework;
+local os = os;
+local ValueType = ValueType;
+local package = package;
 
-function config.init()
-	config.default_config = {
+this.current_config = nil;
+this.config_file_name = "Better Matchmaking/config.json";
+
+this.default_config = {};
+
+function this.init()
+	this.default_config = {
 		timeout_fix = {
 			enabled = true,
 
@@ -41,20 +74,20 @@ function config.init()
 	};
 end
 
-function config.load()
-	local loaded_config = json.load_file(config.config_file_name);
+function this.load()
+	local loaded_config = json.load_file(this.config_file_name);
 	if loaded_config ~= nil then
 		log.info("[Better Matchmaking] config.json loaded successfully");
-		config.current_config = table_helpers.merge(config.default_config, loaded_config);
+		this.current_config = utils.table.merge(this.default_config, loaded_config);
 	else
 		log.error("[Better Matchmaking] Failed to load config.json");
-		config.current_config = table_helpers.deep_copy(config.default_config);
+		this.current_config = utils.table.deep_copy(this.default_config);
 	end
 end
 
-function config.save()
+function this.save()
 	-- save current config to disk, replacing any existing file
-	local success = json.dump_file(config.config_file_name, config.current_config);
+	local success = json.dump_file(this.config_file_name, this.current_config);
 	if success then
 		log.info("[Better Matchmaking] config.json saved successfully");
 	else
@@ -62,12 +95,12 @@ function config.save()
 	end
 end
 
-function config.init_module()
-	table_helpers = require("Better_Matchmaking.table_helpers");
+function this.init_module()
+	utils = require("Better_Matchmaking.utils");
 
-	config.init();
-	config.load();
-	config.current_config.version = "2.3.1";
+	this.init();
+	this.load();
+	this.current_config.version = "2.3.2";
 end
 
-return config;
+return this;

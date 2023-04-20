@@ -1,38 +1,69 @@
-local customization_menu = {};
+local this = {};
 
-local table_helpers;
+local utils;
 local config;
 
+local sdk = sdk;
+local tostring = tostring;
+local pairs = pairs;
+local ipairs = ipairs;
+local tonumber = tonumber;
+local require = require;
+local pcall = pcall;
+local table = table;
+local string = string;
+local Vector3f = Vector3f;
+local d2d = d2d;
+local math = math;
+local json = json;
+local log = log;
+local fs = fs;
+local next = next;
+local type = type;
+local setmetatable = setmetatable;
+local getmetatable = getmetatable;
+local assert = assert;
+local select = select;
+local coroutine = coroutine;
+local utf8 = utf8;
+local re = re;
+local imgui = imgui;
+local draw = draw;
+local Vector2f = Vector2f;
+local reframework = reframework;
+local os = os;
+local ValueType = ValueType;
+local package = package;
 
-customization_menu.is_opened = false;
-customization_menu.status = "OK";
+this.is_opened = false;
+this.status = "OK";
 
-customization_menu.window_position = Vector2f.new(480, 200);
-customization_menu.window_pivot = Vector2f.new(0, 0);
-customization_menu.window_size = Vector2f.new(500, 480);
-customization_menu.window_flags = 0x10120;
+this.window_position = Vector2f.new(480, 200);
+this.window_pivot = Vector2f.new(0, 0);
+this.window_size = Vector2f.new(535, 480);
+this.window_flags = 0x10120;
 
-customization_menu.color_picker_flags = 327680;
-customization_menu.decimal_input_flags = 33;
+this.color_picker_flags = 327680;
+this.decimal_input_flags = 33;
 
-customization_menu.region_lock_filters = { "Close", "Default", "Far", "Worldwide" };
+this.region_lock_filters = { "Close", "Default", "Far", "Worldwide" };
 
-function customization_menu.init()
+function this.init()
 end
 
-function customization_menu.draw()
-	imgui.set_next_window_pos(customization_menu.window_position, 1 << 3, customization_menu.window_pivot);
-	imgui.set_next_window_size(customization_menu.window_size, 1 << 3);
+function this.draw()
+	imgui.set_next_window_pos(this.window_position, 1 << 3, this.window_pivot);
+	imgui.set_next_window_size(this.window_size, 1 << 3);
 
-	customization_menu.is_opened = imgui.begin_window(
-		"Better Matchmaking v" .. config.current_config.version, customization_menu.is_opened, customization_menu.window_flags);
+	this.is_opened = imgui.begin_window(
+		"Better Matchmaking v" .. config.current_config.version, this.is_opened, this.window_flags);
 
-	if not customization_menu.is_opened then
+	if not this.is_opened then
 		imgui.end_window();
 		return;
 	end
 
-	local status_string = tostring(customization_menu.status);
+	local status_string = tostring(this.status);
 	imgui.text("Status: " .. status_string);
 
 	local config_changed = false;
@@ -82,12 +113,12 @@ function customization_menu.draw()
 
 		changed, index = imgui.combo(
 			"Distance Filter", 
-			table_helpers.find_index(customization_menu.region_lock_filters, config.current_config.region_lock_fix.distance_filter), 
-			customization_menu.region_lock_filters);
+			utils.table.find_index(this.region_lock_filters, config.current_config.region_lock_fix.distance_filter), 
+			this.region_lock_filters);
 		config_changed = config_changed or changed;
 
 		if changed then
-			config.current_config.region_lock_fix.distance_filter = customization_menu.region_lock_filters[index];
+			config.current_config.region_lock_fix.distance_filter = this.region_lock_filters[index];
 		end
 
 
@@ -97,10 +128,10 @@ function customization_menu.draw()
 			--k_ELobbyDistanceFilterFar	2	For games that don't have many latency requirements, will return lobbies about half-way around the globe.
 			--k_ELobbyDistanceFilterWorldwide	3	No filtering, will match lobbies as far as India to NY (not recommended, expect multiple seconds of latency between the clients).
 
-			imgui.text("Close - Only lobbies in the same immediate region will be returned.");
-			imgui.text("Default - Only lobbies in the same region or nearby regions will be returned.");
-			imgui.text("Far - Will return lobbies about half-way around the globe.");
-			imgui.text("Worldwide - No filtering, will match lobbies as far as India to NY");
+			imgui.text("Close - Only quest sessions in the same immediate region will be returned.");
+			imgui.text("Default - Only quest sessions in the same region or nearby regions will be returned.");
+			imgui.text("Far - Will return quest sessions about half-way around the globe.");
+			imgui.text("Worldwide - No filtering, will match quest sessions as far as India to NY");
 			imgui.text("(not recommended, expect multiple seconds of latency between the clients).");
 
 			imgui.tree_pop();
@@ -144,11 +175,11 @@ function customization_menu.draw()
 	end
 end
 
-function customization_menu.init_module()
-	table_helpers = require("Better_Matchmaking.table_helpers");
+function this.init_module()
+	utils = require("Better_Matchmaking.utils");
 	config = require("Better_Matchmaking.config");
 
-	customization_menu.init();
+	this.init();
 end
 
-return customization_menu;
+return this;

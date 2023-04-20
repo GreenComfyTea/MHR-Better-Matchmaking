@@ -1,26 +1,58 @@
-local native_customization_menu = {};
+local this = {};
 
-local table_helpers;
+local utils;
 local config;
 local customization_menu;
+
+local sdk = sdk;
+local tostring = tostring;
+local pairs = pairs;
+local ipairs = ipairs;
+local tonumber = tonumber;
+local require = require;
+local pcall = pcall;
+local table = table;
+local string = string;
+local Vector3f = Vector3f;
+local d2d = d2d;
+local math = math;
+local json = json;
+local log = log;
+local fs = fs;
+local next = next;
+local type = type;
+local setmetatable = setmetatable;
+local getmetatable = getmetatable;
+local assert = assert;
+local select = select;
+local coroutine = coroutine;
+local utf8 = utf8;
+local re = re;
+local imgui = imgui;
+local draw = draw;
+local Vector2f = Vector2f;
+local reframework = reframework;
+local os = os;
+local ValueType = ValueType;
+local package = package;
 
 local mod_menu_api_package_name = "ModOptionsMenu.ModMenuApi";
 local mod_menu = nil;
 
 local native_UI = nil;
 
-native_customization_menu.show_quest_types = false;
-native_customization_menu.show_when_to_hide_options = false;
-native_customization_menu.region_lock_filter_descriptions = {
-	"Close - Only lobbies in the same immediate region\nwill be returned.",
-	"Default - Only lobbies in the same region or nearby\nregions will be returned.",
-	"Far - Will return lobbies about half-way around the\nglobe.",
-	"Worldwide - No filtering, will match lobbies as far\nas India to NY (not recommended, expect multiple\nseconds of latency between the clients)."
+this.show_quest_types = false;
+this.show_when_to_hide_options = false;
+this.region_lock_filter_descriptions = {
+	"Close - Only quest sessions in the same immediate region\nwill be returned.",
+	"Default - Only quest sessions in the same region or nearby\nregions will be returned.",
+	"Far - Will return quest sessions about half-way around the\nglobe.",
+	"Worldwide - No filtering, will match quest sessions as far\nas India to NY (not recommended, expect multiple\nseconds of latency between the clients)."
 };
 
 --no idea how this works but google to the rescue
 --can use this to check if the api is available and do an alternative to avoid complaints from users
-function native_customization_menu.is_module_available(name)
+function this.is_module_available(name)
 	if package.loaded[name] then
 		return true;
 	else
@@ -37,7 +69,7 @@ function native_customization_menu.is_module_available(name)
 	end
 end
 
-function native_customization_menu.draw()
+function this.draw()
 	local changed = false;
 	local config_changed = false;
 	local index = 1; 
@@ -57,12 +89,12 @@ function native_customization_menu.draw()
 	config_changed = config_changed or changed;
 
 	if mod_menu.Button("<COL YEL>Quest Types</COL>", "", false, "Show/Hide Options to enable Timeout Fix for Specific Quest Types.") then
-		native_customization_menu.show_quest_types = not native_customization_menu.show_quest_types;
+		this.show_quest_types = not this.show_quest_types;
 		
 		mod_menu.Repaint();
 	end
 
-	if native_customization_menu.show_quest_types then
+	if this.show_quest_types then
 		mod_menu.IncreaseIndent();
 		mod_menu.IncreaseIndent();
 
@@ -106,9 +138,9 @@ function native_customization_menu.draw()
 
 	changed, index = mod_menu.Options(
 		"Distance Filter",
-		table_helpers.find_index(customization_menu.region_lock_filters, config.current_config.region_lock_fix.distance_filter),
+		utils.table.find_index(customization_menu.region_lock_filters, config.current_config.region_lock_fix.distance_filter),
 		customization_menu.region_lock_filters,
-		native_customization_menu.region_lock_filter_descriptions,
+		this.region_lock_filter_descriptions,
 		"Change Distance Filter."
 	);
 	config_changed = config_changed or changed;
@@ -129,12 +161,12 @@ function native_customization_menu.draw()
 
 
 	if mod_menu.Button("<COL YEL>When to hide Options</COL>", "", false, "Show/Hide Options to hide Network Errors on and outside quests.") then
-		native_customization_menu.show_when_to_hide_options = not native_customization_menu.show_when_to_hide_options;
+		this.show_when_to_hide_options = not this.show_when_to_hide_options;
 
 		mod_menu.Repaint();
 	end
 
-	if native_customization_menu.show_when_to_hide_options then
+	if this.show_when_to_hide_options then
 		mod_menu.IncreaseIndent();
 		mod_menu.IncreaseIndent();
 
@@ -165,16 +197,16 @@ function native_customization_menu.draw()
 	end
 end
 
-function native_customization_menu.on_reset_all_settings()
-	config.current_config = table_helpers.deep_copy(config.default_config);
+function this.on_reset_all_settings()
+	config.current_config = utils.table.deep_copy(config.default_config);
 end
 
-function native_customization_menu.init_module()
-	table_helpers = require("Better_Matchmaking.table_helpers");
+function this.init_module()
+	utils = require("Better_Matchmaking.utils");
 	config = require("Better_Matchmaking.config");
 	customization_menu = require("Better_Matchmaking.customization_menu");
 
-	if native_customization_menu.is_module_available(mod_menu_api_package_name) then
+	if this.is_module_available(mod_menu_api_package_name) then
 		mod_menu = require(mod_menu_api_package_name);
 	end
 
@@ -186,11 +218,11 @@ function native_customization_menu.init_module()
 	native_UI = mod_menu.OnMenu(
 		"Better Matchmaking",
 		"Disables Timeout when searching for \"Join Request\".\nDisables Region Lock and Online Warning.",
-		native_customization_menu.draw
+		this.draw
 	);
 
-	native_UI.OnResetAllSettings = native_customization_menu.on_reset_all_settings;
+	native_UI.OnResetAllSettings = this.on_reset_all_settings;
 
 end
 
-return native_customization_menu;
+return this;
