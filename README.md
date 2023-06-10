@@ -1,6 +1,6 @@
 <p align="center">
 	<h2 align="center"><b>"Better Matchmaking" Mod for Monster Hunter: Rise</b></h2>
-	<p align="center">Fixes Region Lock and improves matchmaking experience.</p>
+	<p align="center">Mod that fixes Region Lock and improves matchmaking experience.</p>
 </p>
 
 <p align="center">
@@ -30,10 +30,10 @@
 	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/releases">
 		<img alt="Release Date" src="https://img.shields.io/github/release-date/greencomfytea/mhr-better-matchmaking" />
 	</a>
-	<a>
+	<a href="">
 		<img alt="Platform" src="https://img.shields.io/badge/platform-win%20%7C%20linux%20%7C%20steam%20deck-lightgrey" />
 	</a>
-	<a>
+	<a href="">
 		<img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2023" />
 	</a>
 </p>
@@ -49,19 +49,19 @@
 	<a>
 		<img alt="Repo Size" src="https://img.shields.io/github/repo-size/greencomfytea/mhr-better-matchmaking" />
 	</a>
-	<a>
+	<a href="">
 		<img alt="Goto Counter" src="https://img.shields.io/github/search/greencomfytea/mhr-better-matchmaking/goto" />
 	</a>
 	<a href="https://github.com/sponsors/greencomfytea">
 		<img alt="Sponsors" src="https://img.shields.io/github/sponsors/greencomfytea" />
 	</a>
-	<a>
+	<a href="">
 		<img alt="Watchers" src="https://img.shields.io/github/watchers/greencomfytea/mhr-better-matchmaking" />
 	</a>
 	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/forks">
 		<img alt="Forks" src="https://img.shields.io/github/forks/greencomfytea/mhr-better-matchmaking" />
 	</a>
-	<a>
+	<a href="">
 		<img alt="Stars" src="https://img.shields.io/github/stars/greencomfytea/mhr-better-matchmaking" />
 	</a>
 </p>
