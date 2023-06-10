@@ -97,7 +97,11 @@
 	</a>
 </p>
 
-![](https://user-images.githubusercontent.com/30152047/183247427-c71bf991-6910-4801-97c0-5e7a537305e7.png)
+<p align="center">
+	<a>
+		<img align="center" src="https://user-images.githubusercontent.com/30152047/183247427-c71bf991-6910-4801-97c0-5e7a537305e7.png" />
+	</a>
+</p>
 
 # Links
 * **[Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/1044)**  
