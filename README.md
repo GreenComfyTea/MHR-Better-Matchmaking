@@ -1,6 +1,101 @@
-# "Better Matchmaking" Mod for Monster Hunter: Rise
+<p align="center">
+	<h2 align="center"><b>"Better Matchmaking" Mod for Monster Hunter: Rise</b></h2>
+	<p align="center">Fixes Region Lock and improves matchmaking experience.</p>
+</p>
 
-Mod for Monster Hunter Rise that fixed Region Lock and improves matchmaking experience. 
+<p align="center">
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/graphs/contributors">
+		<img alt="Contributors" src="https://img.shields.io/github/contributors/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/issues">
+		<img alt="Issues" src="https://img.shields.io/github/issues/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/issues">
+		<img alt="Issues Closed" src="https://img.shields.io/github/issues-closed/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/pulls">
+		<img alt="Pull Requests" src="https://img.shields.io/github/issues-pr/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/pulls">
+		<img alt="Pull Requests Closed" src="https://img.shields.io/github/issues-pr-closed/greencomfytea/mhr-better-matchmaking" />
+	</a>
+</p>
+<p align="center">
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/blob/main/LICENSE">
+		<img alt="License" src="https://img.shields.io/github/license/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/releases">
+		<img alt="Release Version" src="https://img.shields.io/github/v/release/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/releases">
+		<img alt="Release Date" src="https://img.shields.io/github/release-date/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a>
+		<img alt="Platform" src="https://img.shields.io/badge/platform-win%20%7C%20linux%20%7C%20steam%20deck-lightgrey" />
+	</a>
+	<a>
+		<img alt="Maintenance" src="https://img.shields.io/maintenance/yes/2023" />
+	</a>
+</p>
+<p align="center">
+	<a href="https://www.nexusmods.com/monsterhunterrise/mods/26">
+		<img alt="REFramework Dependency" src="https://img.shields.io/badge/dependency-REFramework%20v1.503%2B-green" />
+	</a>
+</p>
+<p align="center">
+	<a>
+		<img alt="Repo Size" src="https://img.shields.io/github/repo-size/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a>
+		<img alt="Goto Counter" src="https://img.shields.io/github/search/greencomfytea/mhr-better-matchmaking/goto" />
+	</a>
+	<a href="https://github.com/sponsors/greencomfytea">
+		<img alt="Sponsors" src="https://img.shields.io/github/sponsors/greencomfytea" />
+	</a>
+	<a>
+		<img alt="Watchers" src="https://img.shields.io/github/watchers/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/forks">
+		<img alt="Forks" src="https://img.shields.io/github/forks/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a>
+		<img alt="Stars" src="https://img.shields.io/github/stars/greencomfytea/mhr-better-matchmaking" />
+	</a>
+</p>
+<p align="center">
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/commits/main">
+		<img alt="Last Commit" src="https://img.shields.io/github/last-commit/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/commits/main">
+		<img alt="Commits Since" src="https://img.shields.io/github/commits-since/greencomfytea/mhr-better-matchmaking/latest" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/graphs/commit-activity">
+		<img alt="Commit Activity" src="https://img.shields.io/github/commit-activity/t/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/graphs/commit-activity">
+		<img alt="Commit Activity (Year)" src="https://img.shields.io/github/commit-activity/y/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/graphs/commit-activity">
+		<img alt="Commit Activity (Month)" src="https://img.shields.io/github/commit-activity/m/greencomfytea/mhr-better-matchmaking" />
+	</a>
+	<a href="https://github.com/greencomfytea/mhr-better-matchmaking/graphs/commit-activity">
+		<img alt="Commit Activity (Week)" src="https://img.shields.io/github/commit-activity/w/greencomfytea/mhr-better-matchmaking" />
+	</a>
+</p>
+<p align="center">
+	<a href="https://www.nexusmods.com/monsterhunterrise/mods/1044">
+		<img alt="Website" src="https://img.shields.io/website?down_color=red&down_message=down&up_color=green&up_message=up&url=https://www.nexusmods.com/monsterhunterrise/mods/1044" />
+	</a>
+	<a href="https://github.com/greencomfytea?tab=followers">
+		<img alt="Followers" src="https://img.shields.io/github/followers/greencomfytea" />
+	</a>
+	<a href="https://twitter.com/greencomfytea">
+		<img alt="Twitter" src="https://img.shields.io/twitter/follow/greencomfytea" />
+	</a>
+	<a href="https://www.twitch.tv/greencomfytea">
+		<img alt="Twitch" src="https://img.shields.io/twitch/status/greencomfytea" />
+	</a>
+</p>
 
 ![](https://user-images.githubusercontent.com/30152047/183247427-c71bf991-6910-4801-97c0-5e7a537305e7.png)
 
@@ -16,7 +111,7 @@ Mod for Monster Hunter Rise that fixed Region Lock and improves matchmaking expe
 1. [Optional] Install [[Custom In-Game Mod Menu API](https://www.nexusmods.com/monsterhunterrise/mods/1292);
 3. Download the mod:
     * Official release can be downloaded from [Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/1044);
-    * Nightly builds are available in [this repo](https://github.com/GreenComfyTea/MHR-Better-Matchmaking) and can contain broken functionality, debugging info on screen, bugs and might require the latest [nightly build](https://github.com/praydog/REFramework-nightly/releases) of [REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26). Use with caution!
+    * Nightly builds are available in [this repo](https://github.com/greencomfytea/mhr-better-matchmaking) and can contain broken functionality, debugging info on screen, bugs and might require the latest [nightly build](https://github.com/praydog/REFramework-nightly/releases) of [REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26). Use with caution!
 4. Extract the mod from the archive and place it in MonsterHunterRise folder.
 
 # Credits
