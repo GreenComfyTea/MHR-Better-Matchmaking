@@ -37,7 +37,7 @@
 	</a>
 	<br>
 	<a href="https://www.nexusmods.com/monsterhunterrise/mods/26">
-		<img alt="REFramework Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20v1.503%2B-brightgreen?logo=package-dependencies" />
+		<img alt="REFramework Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20v1.605%2B-brightgreen?logo=package-dependencies" />
 	</a>
    	<a href="https://www.nexusmods.com/monsterhunterrise/mods/1292">
 		<img alt="In-Game Menu  Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-Custom%20In--Game%20Mod%20Menu%20API%20v1.71%2B-brightgreen?logo=package-dependencies" />
