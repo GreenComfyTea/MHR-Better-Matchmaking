@@ -68,10 +68,18 @@ function this.init()
 			}
 		},
 
+		
+
 		region_lock_fix = {
-			enabled = true,
-			distance_filter = "Far"
-		}
+			join_requests = {
+				enabled = true,
+				distance_filter = "Far"
+			},
+			lobbies = {
+				enabled = true,
+				distance_filter = "Far"
+			}
+		},
 	};
 end
 

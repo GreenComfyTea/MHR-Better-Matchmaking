@@ -63,41 +63,52 @@ function this.draw()
 		return;
 	end
 
-	local status_string = tostring(this.status);
-	imgui.text("Status: " .. status_string);
-
 	local config_changed = false;
 	local changed = false;
 	local index = 1;
 
+	if imgui.button("Reset Config") then
+		config.reset();
+		config_changed = true;
+	end
+
+	imgui.same_line();
+
+	local status_string = tostring(this.status);
+	imgui.text("Status: " .. status_string);
+
+	
+
 	if imgui.tree_node("Timeout Fix") then
-		changed, config.current_config.timeout_fix.enabled = imgui.checkbox(
-			"Enabled", config.current_config.timeout_fix.enabled);
+		local timeout_fix_config = config.current_config.timeout_fix;
+
+		changed, timeout_fix_config.enabled = imgui.checkbox(
+			"Enabled", timeout_fix_config.enabled);
 		config_changed = config_changed or changed;
 
 		if imgui.tree_node("Quest Types") then
-			changed, config.current_config.timeout_fix.quest_types.regular = imgui.checkbox(
-				"Regular", config.current_config.timeout_fix.quest_types.regular);
+			changed, timeout_fix_config.quest_types.regular = imgui.checkbox(
+				"Regular", timeout_fix_config.quest_types.regular);
 			config_changed = config_changed or changed;
 
-			changed, config.current_config.timeout_fix.quest_types.rampage = imgui.checkbox(
-				"Rampage", config.current_config.timeout_fix.quest_types.rampage);
+			changed, timeout_fix_config.quest_types.rampage = imgui.checkbox(
+				"Rampage", timeout_fix_config.quest_types.rampage);
 			config_changed = config_changed or changed;
 
-			changed, config.current_config.timeout_fix.quest_types.random = imgui.checkbox(
-				"Random", config.current_config.timeout_fix.quest_types.random);
+			changed, timeout_fix_config.quest_types.random = imgui.checkbox(
+				"Random", timeout_fix_config.quest_types.random);
 			config_changed = config_changed or changed;
 
-			changed, config.current_config.timeout_fix.quest_types.random_master_rank = imgui.checkbox(
-				"Random MR", config.current_config.timeout_fix.quest_types.random_master_rank);
+			changed, timeout_fix_config.quest_types.random_master_rank = imgui.checkbox(
+				"Random MR", timeout_fix_config.quest_types.random_master_rank);
 			config_changed = config_changed or changed;
 
-			changed, config.current_config.timeout_fix.quest_types.random_anomaly = imgui.checkbox(
-				"Random Anomaly", config.current_config.timeout_fix.quest_types.random_anomaly);
+			changed, timeout_fix_config.quest_types.random_anomaly = imgui.checkbox(
+				"Random Anomaly", timeout_fix_config.quest_types.random_anomaly);
 			config_changed = config_changed or changed;
 
-			changed, config.current_config.timeout_fix.quest_types.anomaly_investigation = imgui.checkbox(
-				"Anomaly Investigation", config.current_config.timeout_fix.quest_types.anomaly_investigation);
+			changed, timeout_fix_config.quest_types.anomaly_investigation = imgui.checkbox(
+				"Anomaly Investigation", timeout_fix_config.quest_types.anomaly_investigation);
 			config_changed = config_changed or changed;
 
 			imgui.tree_pop();
@@ -106,21 +117,63 @@ function this.draw()
 		imgui.tree_pop();
 	end
 
-	if imgui.tree_node("Region Lock Fix (Join Requests)") then
-		changed, config.current_config.region_lock_fix.enabled = imgui.checkbox(
-			"Enabled", config.current_config.region_lock_fix.enabled);
-		config_changed = config_changed or changed;
+	if imgui.tree_node("Region Lock Fix") then
 
-		changed, index = imgui.combo(
-			"Distance Filter", 
-			utils.table.find_index(this.region_lock_filters, config.current_config.region_lock_fix.distance_filter), 
-			this.region_lock_filters);
-		config_changed = config_changed or changed;
-
-		if changed then
-			config.current_config.region_lock_fix.distance_filter = this.region_lock_filters[index];
+		if imgui.tree_node("Join Requests") then
+			local region_lock_fix_config = config.current_config.region_lock_fix.join_requests;
+	
+			changed, region_lock_fix_config.enabled = imgui.checkbox(
+				"Enabled", region_lock_fix_config.enabled);
+			config_changed = config_changed or changed;
+	
+			changed, index = imgui.combo(
+				"Distance Filter", 
+				utils.table.find_index(this.region_lock_filters, region_lock_fix_config.distance_filter),
+				this.region_lock_filters);
+			config_changed = config_changed or changed;
+	
+			if changed then
+				region_lock_fix_config.distance_filter = this.region_lock_filters[index];
+			end
+	
+	
+			if imgui.tree_node("Explanation") then
+				--k_ELobbyDistanceFilterClose	0	Only lobbies in the same immediate region will be returned.
+				--k_ELobbyDistanceFilterDefault	1	Only lobbies in the same region or nearby regions will be returned.
+				--k_ELobbyDistanceFilterFar	2	For games that don't have many latency requirements, will return lobbies about half-way around the globe.
+				--k_ELobbyDistanceFilterWorldwide	3	No filtering, will match lobbies as far as India to NY (not recommended, expect multiple seconds of latency between the clients).
+	
+				imgui.text("Close - Only sessions in the same immediate region will be returned.");
+				imgui.text("Default - Only sessions in the same region or nearby regions will be returned.");
+				imgui.text("Far - Will return sessions about half-way around the globe.");
+				imgui.text("Worldwide - No filtering, will match sessions as far as India to NY");
+				imgui.text("(not recommended, expect multiple seconds of latency between the clients).");
+	
+				imgui.tree_pop();
+			end
+	
+			imgui.tree_pop();
 		end
-
+	
+		if imgui.tree_node("Lobbies") then
+			local region_lock_fix_config = config.current_config.region_lock_fix.lobbies;
+	
+			changed, region_lock_fix_config.enabled = imgui.checkbox(
+				"Enabled", region_lock_fix_config.enabled);
+			config_changed = config_changed or changed;
+	
+			changed, index = imgui.combo(
+				"Distance Filter", 
+				utils.table.find_index(this.region_lock_filters, region_lock_fix_config.distance_filter),
+				this.region_lock_filters);
+			config_changed = config_changed or changed;
+	
+			if changed then
+				region_lock_fix_config.distance_filter = this.region_lock_filters[index];
+			end
+	
+			imgui.tree_pop();
+		end
 
 		if imgui.tree_node("Explanation") then
 			--k_ELobbyDistanceFilterClose	0	Only lobbies in the same immediate region will be returned.
@@ -128,10 +181,10 @@ function this.draw()
 			--k_ELobbyDistanceFilterFar	2	For games that don't have many latency requirements, will return lobbies about half-way around the globe.
 			--k_ELobbyDistanceFilterWorldwide	3	No filtering, will match lobbies as far as India to NY (not recommended, expect multiple seconds of latency between the clients).
 
-			imgui.text("Close - Only quest sessions in the same immediate region will be returned.");
-			imgui.text("Default - Only quest sessions in the same region or nearby regions will be returned.");
-			imgui.text("Far - Will return quest sessions about half-way around the globe.");
-			imgui.text("Worldwide - No filtering, will match quest sessions as far as India to NY");
+			imgui.text("Close - Only sessions in the same immediate region will be returned.");
+			imgui.text("Default - Only sessions in the same region or nearby regions will be returned.");
+			imgui.text("Far - Will return sessions about half-way around the globe.");
+			imgui.text("Worldwide - No filtering, will match sessions as far as India to NY");
 			imgui.text("(not recommended, expect multiple seconds of latency between the clients).");
 
 			imgui.tree_pop();

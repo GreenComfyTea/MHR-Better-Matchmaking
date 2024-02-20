@@ -284,15 +284,6 @@ function this.init_module()
 	config = require("Better_Matchmaking.config");
 	utils = require("Better_Matchmaking.utils");
 
-	--snow.SnowSessionManager.
-	--reqMatchmakingAutoJoinSessionRandomMysteryQuest(
-	--	System.UInt32 						lvMin
-	--	System.UInt32						lvMax
-	--	System.UInt32						limit
-	--	System.Nullable`1<System.UInt32>	enemyId
-	--	snow.data.ContentsIdSystem.ItemId	rewardItem
-	--	System.Boolean						isSpecialRandomMystery
-	--)
 	sdk.hook(on_timeout_matchmaking_method, function(args) end,
 	function(retval)
 		this.on_post_timeout_matchmaking();

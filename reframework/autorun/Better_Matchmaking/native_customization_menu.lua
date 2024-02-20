@@ -79,7 +79,7 @@ function this.draw()
 		mod_menu.Label("Version: <COL RED>" .. config.current_config.version .. "</COL>", "",
 		"Donate: <COL RED>https://streamelements.com/greencomfytea/tip</COL>\nBuy me a tea: <COL RED>https://ko-fi.com/greencomfytea</COL>\nSometimes I stream: <COL RED>twitch.tv/greencomfytea</COL>");
 
-
+	
 
 
 
@@ -132,13 +132,15 @@ function this.draw()
 
 	mod_menu.Header("Region Lock Fix (Join Requests)");
 
-	changed, config.current_config.region_lock_fix.enabled = mod_menu.CheckBox(
-		"Enabled", config.current_config.region_lock_fix.enabled, "Enable/Disable Region Lock Fix for Join Requests.");
+	local join_requests_region_lock_fix = config.current_config.region_lock_fix.join_requests;
+
+	changed, join_requests_region_lock_fix.enabled = mod_menu.CheckBox(
+		"Enabled", join_requests_region_lock_fix.enabled, "Enable/Disable Region Lock Fix for Join Requests.");
 	config_changed = config_changed or changed;
 
 	changed, index = mod_menu.Options(
 		"Distance Filter",
-		utils.table.find_index(customization_menu.region_lock_filters, config.current_config.region_lock_fix.distance_filter),
+		utils.table.find_index(customization_menu.region_lock_filters, join_requests_region_lock_fix.distance_filter),
 		customization_menu.region_lock_filters,
 		this.region_lock_filter_descriptions,
 		"Change Distance Filter."
@@ -146,7 +148,32 @@ function this.draw()
 	config_changed = config_changed or changed;
 
 	if changed then
-		config.current_config.region_lock_fix.distance_filter = customization_menu.region_lock_filters[index];
+		join_requests_region_lock_fix.distance_filter = customization_menu.region_lock_filters[index];
+	end
+
+
+
+
+
+	mod_menu.Header("Region Lock Fix (Lobbies)");
+
+	local lobbies_region_lock_fix = config.current_config.region_lock_fix.lobbies;
+
+	changed, lobbies_region_lock_fix.enabled = mod_menu.CheckBox(
+		"Enabled", lobbies_region_lock_fix.enabled, "Enable/Disable Region Lock Fix for Join Requests.");
+	config_changed = config_changed or changed;
+
+	changed, index = mod_menu.Options(
+		"Distance Filter",
+		utils.table.find_index(customization_menu.region_lock_filters, lobbies_region_lock_fix.distance_filter),
+		customization_menu.region_lock_filters,
+		this.region_lock_filter_descriptions,
+		"Change Distance Filter."
+	);
+	config_changed = config_changed or changed;
+
+	if changed then
+		lobbies_region_lock_fix.distance_filter = customization_menu.region_lock_filters[index];
 	end
 
 

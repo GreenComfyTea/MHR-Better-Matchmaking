@@ -38,17 +38,11 @@ local package = package;
 local session_steam_type_def = sdk.find_type_definition("via.network.SessionSteam");
 local set_lobby_distance_filter_method = session_steam_type_def:get_method("setLobbyDistanceFilter");
 local set_is_invisible_method = session_steam_type_def:get_method("setIsInvisible");
+local set_p2p_version_method = session_steam_type_def:get_method("set_P2pVersion");
 
-local last_session_steam_object = nil;
-
-function this.on_set_is_invisible(session_steam)
-	local region_lock_fix_config = config.current_config.region_lock_fix;
+function this.region_lock_fix(session_steam, region_lock_fix_config)
 	if not region_lock_fix_config.enabled then
-		if session_steam ~= last_session_steam_object then
-			set_lobby_distance_filter_method:call(session_steam, 1);
-		end
-
-		last_session_steam_object = session_steam;
+		set_lobby_distance_filter_method:call(session_steam, 1);
 		return;
 	end
 
@@ -61,8 +55,14 @@ function this.on_set_is_invisible(session_steam)
 	else -- "Default"
 		set_lobby_distance_filter_method:call(session_steam, 1);
 	end
+end
 
-	last_session_steam_object = session_steam;
+function this.on_set_is_invisible(session_steam)
+	this.region_lock_fix(session_steam, config.current_config.region_lock_fix.join_requests)
+end
+
+function this.on_set_p2p_version(session_steam)
+	this.region_lock_fix(session_steam, config.current_config.region_lock_fix.lobbies)
 end
 
 function this.init_module()
@@ -71,6 +71,12 @@ function this.init_module()
 
 	sdk.hook(set_is_invisible_method, function(args)
 		this.on_set_is_invisible(sdk.to_managed_object(args[1]));
+	end, function(retval)
+		return retval;
+	end);
+
+	sdk.hook(set_p2p_version_method, function(args)
+		this.on_set_p2p_version(sdk.to_managed_object(args[1]));
 	end, function(retval)
 		return retval;
 	end);
