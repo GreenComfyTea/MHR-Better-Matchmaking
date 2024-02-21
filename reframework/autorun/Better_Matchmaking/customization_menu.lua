@@ -40,7 +40,7 @@ this.status = "OK";
 
 this.window_position = Vector2f.new(480, 200);
 this.window_pivot = Vector2f.new(0, 0);
-this.window_size = Vector2f.new(535, 480);
+this.window_size = Vector2f.new(570, 480);
 this.window_flags = 0x10120;
 
 this.color_picker_flags = 327680;
@@ -177,24 +177,200 @@ function this.draw()
 		imgui.tree_pop();
 	end
 
-	if imgui.tree_node("Language Lock Fix") then
-		changed, config.current_config.language_lock_fix.enabled = imgui.checkbox(
-			"Enabled", config.current_config.language_lock_fix.enabled);
+	if imgui.tree_node("Language Filter Fix") then
+		local language_filter_fix = config.current_config.language_filter_fix;
+
+		changed, language_filter_fix.enabled = imgui.checkbox(
+			"Enabled", language_filter_fix.enabled);
 		config_changed = config_changed or changed;
 
+		if imgui.tree_node("Lobby Language Filter Bypass") then
+			changed, language_filter_fix.lobby_language_filter_bypass.enabled = imgui.checkbox(
+				"Enabled", language_filter_fix.lobby_language_filter_bypass.enabled);
+			config_changed = config_changed or changed;
+				
+			imgui.text_colored("I encourage you to respect the host's decision to play only with people of the same", 0xFF4040FF);
+			imgui.text_colored("language and use the bypass only when absolutely necessary.", 0xFF4040FF);
+
+			imgui.tree_pop();
+		end
+
 		if imgui.tree_node("Explanation") then
-			imgui.text("In Rise \"Any Language\" option for lobby search doesn't behave as you");
-			imgui.text("would expect. Instead of returning all lobbies regardless of the host's");
-			imgui.text("language, the game treats \"Any Language\" option as a separate language");
-			imgui.text("entry and returns lobbies that also have \"Any Language\" option selected,");
-			imgui.text("while all lobbies with \"Same Language\" option are filtered out.");
+			imgui.text("\"Language\" option for lobbies doesn't behave as you would expect in this game.");
+			imgui.text("\"Any Language\" is treated as a separate language entry, basically.");
+			
+			imgui.new_line();
+			imgui.text("Vanilla:");
+			imgui.new_line();
+
+			-- Any Language Search
+
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Match", 0xFF80FF80);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Success", 0xFF80FF80);
+
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Don't Match", 0xFF4040FF);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Success", 0xFF80FF80);
+
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Match", 0xFF80FF80);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Failure", 0xFF4040FF);
+
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Don't Match", 0xFF4040FF);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Failure", 0xFF80FF80);
 
 			imgui.new_line();
 
-			imgui.text("Language Lock Fix changes \"Any Language\" option behavior to what you");
-			imgui.text("would expect: return all lobbies regardless of the host's language and");
-			imgui.text("what option the host has selected \"Any Language\" or \"Same Language\".");
+			-- Same Language Search
 
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Match", 0xFF80FF80);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Failure", 0xFF4040FF);
+
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Don't Match", 0xFF4040FF);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Failure", 0xFF80FF80);
+
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Match", 0xFF80FF80);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Success", 0xFF80FF80);
+
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Don't Match", 0xFF4040FF);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Failure", 0xFF80FF80);
+
+			-- With Language Filter Fix
+
+			imgui.new_line();
+			imgui.text("With Language Filter Fix:");
+			imgui.new_line();
+
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Match", 0xFF80FF80);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Success", 0xFF80FF80);
+
+			-- With Language Filter Fix and Lobby Language Filter Bypass
+
+			imgui.new_line();
+			imgui.text("With Language Filter Fix and Lobby Language Filter Bypass:");
+			imgui.new_line();
+
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Don't Match", 0xFF4040FF);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Success", 0xFF80FFFF);
+
+			-- Can't be fixed
+
+			imgui.new_line();
+			imgui.text("Can't be fixed because the game doesn't send the info about the actual language");
+			imgui.text("for \"Any Language\" lobbies:");
+			imgui.new_line();
+
+			imgui.text_colored("\"Same Language\"", 0xFFFF80C0);
+			imgui.same_line();
+			imgui.text("Search  +");
+			imgui.same_line();
+			imgui.text_colored("\"Any Language\"", 0xFFFFC080);
+			imgui.same_line();
+			imgui.text("Lobby  +");
+			imgui.same_line();
+			imgui.text_colored("Languages Match", 0xFF80FF80);
+			imgui.text("=");
+			imgui.same_line();
+			imgui.text_colored("Failure", 0xFF4040FF);
+			
 			imgui.tree_pop();
 		end
 

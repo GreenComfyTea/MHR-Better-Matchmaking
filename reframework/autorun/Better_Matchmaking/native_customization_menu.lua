@@ -181,10 +181,16 @@ function this.draw()
 
 
 
-	mod_menu.Header("Language Lock Fix");
+	mod_menu.Header("Language Filter Fix");
 
-	changed, config.current_config.language_lock_fix.enabled = mod_menu.CheckBox(
-		"Enabled", config.current_config.language_lock_fix.enabled, "Enable/Disable Language Lock Fix for Lobbies.");
+	changed, config.current_config.language_filter_fix.enabled = mod_menu.CheckBox("Enabled",
+		config.current_config.language_filter_fix.enabled,
+		"Enable/Disable Language Filter Fix for Lobbies.");
+	config_changed = config_changed or changed;
+
+	changed, config.current_config.language_filter_fix.lobby_language_filter_bypass.enabled = mod_menu.CheckBox( "Bypass Lobby Language Filter",
+		config.current_config.language_filter_fix.lobby_language_filter_bypass.enabled,
+		"Enable/Disable Lobby Language Filter Bypass. <COL RED> Use only when absolutely necessary!</RED>");
 	config_changed = config_changed or changed;
 
 

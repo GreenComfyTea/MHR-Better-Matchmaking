@@ -79,8 +79,11 @@ function this.init()
 			}
 		},
 
-		language_lock_fix = {
-			enabled = true
+		language_filter_fix = {
+			enabled = true,
+			lobby_language_filter_bypass = {
+				enabled = false
+			}
 		}
 	};
 end

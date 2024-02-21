@@ -158,22 +158,22 @@ function this.get_language_shifted_id(actual_id)
 end
 
 function this.on_push_back_u32_filter(key, comparison, value)
-	if not config.current_config.language_lock_fix.enabled then
+	if not config.current_config.language_filter_fix.enabled then
 		return sdk.PreHookResult.CALL_ORIGINAL;
 	end
 
 	if key == nil then
-		customization_menu.status = "[language_lock_fix.on_push_back_u32_filter] No key";
+		customization_menu.status = "[language_filter_fix.on_push_back_u32_filter] No key";
 		return sdk.PreHookResult.CALL_ORIGINAL;
 	end
 
 	if comparison == nil then
-		customization_menu.status = "[language_lock_fix.on_push_back_u32_filter] No comparison";
+		customization_menu.status = "[language_filter_fix.on_push_back_u32_filter] No comparison";
 		return sdk.PreHookResult.CALL_ORIGINAL;
 	end
 
 	if value == nil then
-		customization_menu.status = "[language_lock_fix.on_push_back_u32_filter] No value";
+		customization_menu.status = "[language_filter_fix.on_push_back_u32_filter] No value";
 		return sdk.PreHookResult.CALL_ORIGINAL;
 	end
 	
@@ -186,6 +186,7 @@ function this.on_push_back_u32_filter(key, comparison, value)
 
 	-- if language_id == Any Language
 	if language_id == 63 then
+		this.is_any_language_lobby_search_in_progress = true;
 		return sdk.PreHookResult.SKIP_ORIGINAL;
 	end
 
@@ -193,7 +194,7 @@ function this.on_push_back_u32_filter(key, comparison, value)
 end
 
 function this.on_is_lobby_search_result_condition_check_2(search_result)
-	if not config.current_config.language_lock_fix.enabled then
+	if not config.current_config.language_filter_fix.enabled then
 		return;
 	end
 
@@ -202,21 +203,25 @@ function this.on_is_lobby_search_result_condition_check_2(search_result)
 	end
 
 	if search_result == nil then
-		customization_menu.status = "[language_lock_fix.on_is_lobby_search_result_condition_check_2] No search_result";
+		customization_menu.status = "[language_filter_fix.on_is_lobby_search_result_condition_check_2] No search_result";
 		return;
 	end
 
 	local session_info = get_session_info_method:call(search_result);
 
 	if session_info == nil then
-		customization_menu.status = "[language_lock_fix.on_is_lobby_search_result_condition_check_2] No session_info";
+		customization_menu.status = "[language_filter_fix.on_is_lobby_search_result_condition_check_2] No session_info";
 		return;
 	end
 	
 	local search_key = get_search_key_method:call(session_info);
 
 	if search_key == nil then
-		customization_menu.status = "[language_lock_fix.on_is_lobby_search_result_condition_check_2] No search_key";
+		customization_menu.status = "[language_filter_fix.on_is_lobby_search_result_condition_check_2] No search_key";
+		return;
+	end
+
+	if not config.current_config.language_filter_fix.lobby_language_filter_bypass.enabled then
 		return;
 	end
 
