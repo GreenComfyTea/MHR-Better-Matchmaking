@@ -68,8 +68,6 @@ function this.init()
 			}
 		},
 
-		
-
 		region_lock_fix = {
 			join_requests = {
 				enabled = true,
@@ -80,6 +78,10 @@ function this.init()
 				distance_filter = "Far"
 			}
 		},
+
+		language_lock_fix = {
+			enabled = true
+		}
 	};
 end
 

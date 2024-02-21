@@ -1,3 +1,4 @@
+---@diagnostic disable: need-check-nil, undefined-field
 local this = {};
 
 local utils;
@@ -160,7 +161,7 @@ function this.draw()
 	local lobbies_region_lock_fix = config.current_config.region_lock_fix.lobbies;
 
 	changed, lobbies_region_lock_fix.enabled = mod_menu.CheckBox(
-		"Enabled", lobbies_region_lock_fix.enabled, "Enable/Disable Region Lock Fix for Join Requests.");
+		"Enabled", lobbies_region_lock_fix.enabled, "Enable/Disable Region Lock Fix for Lobbies.");
 	config_changed = config_changed or changed;
 
 	changed, index = mod_menu.Options(
@@ -175,6 +176,16 @@ function this.draw()
 	if changed then
 		lobbies_region_lock_fix.distance_filter = customization_menu.region_lock_filters[index];
 	end
+
+
+
+
+
+	mod_menu.Header("Language Lock Fix");
+
+	changed, config.current_config.language_lock_fix.enabled = mod_menu.CheckBox(
+		"Enabled", config.current_config.language_lock_fix.enabled, "Enable/Disable Language Lock Fix for Lobbies.");
+	config_changed = config_changed or changed;
 
 
 
@@ -249,7 +260,6 @@ function this.init_module()
 	);
 
 	native_UI.OnResetAllSettings = this.on_reset_all_settings;
-
 end
 
 return this;

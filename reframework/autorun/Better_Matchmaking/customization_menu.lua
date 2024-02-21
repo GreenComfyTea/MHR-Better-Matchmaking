@@ -136,22 +136,6 @@ function this.draw()
 				region_lock_fix_config.distance_filter = this.region_lock_filters[index];
 			end
 	
-	
-			if imgui.tree_node("Explanation") then
-				--k_ELobbyDistanceFilterClose	0	Only lobbies in the same immediate region will be returned.
-				--k_ELobbyDistanceFilterDefault	1	Only lobbies in the same region or nearby regions will be returned.
-				--k_ELobbyDistanceFilterFar	2	For games that don't have many latency requirements, will return lobbies about half-way around the globe.
-				--k_ELobbyDistanceFilterWorldwide	3	No filtering, will match lobbies as far as India to NY (not recommended, expect multiple seconds of latency between the clients).
-	
-				imgui.text("Close - Only sessions in the same immediate region will be returned.");
-				imgui.text("Default - Only sessions in the same region or nearby regions will be returned.");
-				imgui.text("Far - Will return sessions about half-way around the globe.");
-				imgui.text("Worldwide - No filtering, will match sessions as far as India to NY");
-				imgui.text("(not recommended, expect multiple seconds of latency between the clients).");
-	
-				imgui.tree_pop();
-			end
-	
 			imgui.tree_pop();
 		end
 	
@@ -186,6 +170,30 @@ function this.draw()
 			imgui.text("Far - Will return sessions about half-way around the globe.");
 			imgui.text("Worldwide - No filtering, will match sessions as far as India to NY");
 			imgui.text("(not recommended, expect multiple seconds of latency between the clients).");
+
+			imgui.tree_pop();
+		end
+
+		imgui.tree_pop();
+	end
+
+	if imgui.tree_node("Language Lock Fix") then
+		changed, config.current_config.language_lock_fix.enabled = imgui.checkbox(
+			"Enabled", config.current_config.language_lock_fix.enabled);
+		config_changed = config_changed or changed;
+
+		if imgui.tree_node("Explanation") then
+			imgui.text("In Rise \"Any Language\" option for lobby search doesn't behave as you");
+			imgui.text("would expect. Instead of returning all lobbies regardless of the host's");
+			imgui.text("language, the game treats \"Any Language\" option as a separate language");
+			imgui.text("entry and returns lobbies that also have \"Any Language\" option selected,");
+			imgui.text("while all lobbies with \"Same Language\" option are filtered out.");
+
+			imgui.new_line();
+
+			imgui.text("Language Lock Fix changes \"Any Language\" option behavior to what you");
+			imgui.text("would expect: return all lobbies regardless of the host's language and");
+			imgui.text("what option the host has selected \"Any Language\" or \"Same Language\".");
 
 			imgui.tree_pop();
 		end
