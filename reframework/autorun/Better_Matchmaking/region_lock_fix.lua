@@ -2,6 +2,7 @@ local this = {};
 
 local utils;
 local config;
+local customization_menu;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -40,7 +41,7 @@ local set_lobby_distance_filter_method = session_steam_type_def:get_method("setL
 local set_is_invisible_method = session_steam_type_def:get_method("setIsInvisible");
 local set_p2p_version_method = session_steam_type_def:get_method("set_P2pVersion");
 
-function this.region_lock_fix(session_steam, region_lock_fix_config)
+function this.set_distance_filter(session_steam, region_lock_fix_config)
 	if not region_lock_fix_config.enabled then
 		set_lobby_distance_filter_method:call(session_steam, 1);
 		return;
@@ -63,7 +64,7 @@ function this.on_set_is_invisible(session_steam)
 		return;
 	end
 
-	this.region_lock_fix(session_steam, config.current_config.region_lock_fix.join_requests)
+	this.set_distance_filter(session_steam, config.current_config.region_lock_fix.join_requests)
 end
 
 function this.on_set_p2p_version(session_steam)
@@ -72,8 +73,9 @@ function this.on_set_p2p_version(session_steam)
 		return;
 	end
 
-	this.region_lock_fix(session_steam, config.current_config.region_lock_fix.lobbies)
+	this.set_distance_filter(session_steam, config.current_config.region_lock_fix.lobbies)
 end
+
 
 function this.init_module()
 	config = require("Better_Matchmaking.config");
