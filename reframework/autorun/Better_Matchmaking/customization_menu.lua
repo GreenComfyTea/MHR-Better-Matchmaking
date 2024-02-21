@@ -52,20 +52,47 @@ function this.init()
 end
 
 function this.draw()
-	imgui.set_next_window_pos(this.window_position, 1 << 3, this.window_pivot);
-	imgui.set_next_window_size(this.window_size, 1 << 3);
+	if not this.is_opened then
+		return;
+	end
 
-	this.is_opened = imgui.begin_window(
-		"Better Matchmaking v" .. config.current_config.version, this.is_opened, this.window_flags);
+	local window_position = Vector2f.new(config.current_config.customization_menu.position.x, config.current_config.customization_menu.position.y);
+	local window_pivot = Vector2f.new(config.current_config.customization_menu.pivot.x, config.current_config.customization_menu.pivot.y);
+	local window_size = Vector2f.new(config.current_config.customization_menu.size.width, config.current_config.customization_menu.size.height);
+
+	imgui.set_next_window_pos(window_position, 1 << 3, window_pivot);
+	imgui.set_next_window_size(window_size, 1 << 3);
+
+	this.is_opened = imgui.begin_window("Better Matchmaking v" .. config.current_config.version, this.is_opened, this.window_flags);
 
 	if not this.is_opened then
 		imgui.end_window();
+		config.save_current();
 		return;
 	end
 
 	local config_changed = false;
 	local changed = false;
 	local index = 1;
+
+	local new_window_position = imgui.get_window_pos();
+	if window_position.x ~= new_window_position.x or window_position.y ~= new_window_position.y then
+		config_changed = config_changed or true;
+
+		config.current_config.customization_menu.position.x = new_window_position.x;
+		config.current_config.customization_menu.position.y = new_window_position.y;
+	end
+
+	local new_window_size = imgui.get_window_size();
+	if window_size.x ~= new_window_size.x or window_size.y ~= new_window_size.y then
+		config_changed = config_changed or true;
+
+		config.current_config.customization_menu.size.width = new_window_size.x;
+		config.current_config.customization_menu.size.height = new_window_size.y;
+	end
+
+	local new_window_size = imgui.get_window_size();
+	config_changed = config_changed or new_window_size.x ~= window_size.x or new_window_size.y ~= window_size.y;
 
 	if imgui.button("Reset Config") then
 		config.reset();

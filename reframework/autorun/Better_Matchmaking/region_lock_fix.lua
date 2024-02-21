@@ -93,6 +93,61 @@ function this.init_module()
 	end, function(retval)
 		return retval;
 	end);
+
+
+	local session_manager_type_def = sdk.find_type_definition("snow.SnowSessionManager");
+	local is_lobby_search_result_condition_check_method = session_manager_type_def:get_method("isLobbySearchResultConditionCheck(via.network.session.SearchResult, System.Int32, System.Int32, System.Boolean)");
+
+	sdk.hook(is_lobby_search_result_condition_check_method, function(args)
+		local search_result = sdk.to_managed_object(args[2]);
+
+		local info = search_result:get_SessionInfo();
+		local unique_id = search_result:get_UniqueId();
+		local name = search_result:get_Name();
+
+		local service_type = info:get_ServiceType();
+		local member_num = info:get_MemberNum();
+		local member_max = info:get_MemberMax();
+		local rtt = info:get_Rtt();
+		local presence = info:get_ByPresence();
+		local invitation = info:get_ByInvitation();
+		local private = info:get_Private();
+		local close = info:get_Close();
+		local option = info:get_Option();
+		
+		local search_key = info:get_SearchKey();
+
+		local key_count = search_key:getU32KeyCount();
+
+		local keys = {}
+		
+		-- search_key:setU32Key(6, 965861247);
+
+		for i = 0, key_count - 1 do
+			local key = search_key:getU32Key(i);
+			keys[i + 1] = key;
+		end
+
+		log.debug(string.format("\nunique_id: %s", tostring(unique_id)));
+		log.debug(string.format("name: %s\n", tostring(name)));
+
+		log.debug(string.format("service_type: %s", tostring(service_type)));
+		log.debug(string.format("member_num: %s", tostring(member_num)));
+		log.debug(string.format("member_max: %s", tostring(member_max)));
+		log.debug(string.format("rtt: %s", tostring(rtt)));
+		log.debug(string.format("presence: %s", tostring(presence)));
+		log.debug(string.format("invitation: %s", tostring(invitation)));
+		log.debug(string.format("private: %s", tostring(private)));
+		log.debug(string.format("close: %s", tostring(close)));
+		log.debug(string.format("option: %s\n", tostring(option)));
+
+		log.debug(string.format("key_count: %s", tostring(key_count)));
+		log.debug(string.format("keys: %s\n", utils.table.tostring(keys)));
+	end, function(retval)
+		log.debug(tostring((sdk.to_int64(retval) & 1) == 1));
+		log.debug("");
+		return retval;
+	end);
 end
 
 return this;

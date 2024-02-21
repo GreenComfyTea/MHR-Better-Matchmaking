@@ -225,12 +225,35 @@ function this.on_is_lobby_search_result_condition_check_2(search_result)
 		return;
 	end
 
+	log.debug("\nBYPASSING\n");
+
 	-- Set Language = Any Language
 	set_u32_key_method:call(search_key, 6, this.get_language_shifted_id(63));
 end
 
 function this.on_ans_session_search_succeed()
 	this.is_any_language_lobby_search_in_progress = false;
+
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
+	log.debug("\nDONE\n");
 end
 
 function this.init_module()

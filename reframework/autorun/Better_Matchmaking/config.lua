@@ -42,6 +42,23 @@ this.default_config = {};
 
 function this.init()
 	this.default_config = {
+		customization_menu = {
+			position = {
+				x = 480,
+				y = 200
+			},
+
+			size = {
+				width = 570,
+				height = 480
+			},
+
+			pivot = {
+				x = 0,
+				y = 0
+			}
+		},
+
 		timeout_fix = {
 			enabled = true,
 
