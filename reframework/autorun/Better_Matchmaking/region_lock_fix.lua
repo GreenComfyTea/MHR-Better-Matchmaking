@@ -58,16 +58,27 @@ function this.region_lock_fix(session_steam, region_lock_fix_config)
 end
 
 function this.on_set_is_invisible(session_steam)
+	if session_steam == nil then
+		customization_menu.status = "[misc_fixes.on_set_is_invisible] No session_steam";
+		return;
+	end
+
 	this.region_lock_fix(session_steam, config.current_config.region_lock_fix.join_requests)
 end
 
 function this.on_set_p2p_version(session_steam)
+	if session_steam == nil then
+		customization_menu.status = "[misc_fixes.on_set_p2p_version] No session_steam";
+		return;
+	end
+
 	this.region_lock_fix(session_steam, config.current_config.region_lock_fix.lobbies)
 end
 
 function this.init_module()
 	config = require("Better_Matchmaking.config");
 	utils = require("Better_Matchmaking.utils");
+	customization_menu = require("Better_Matchmaking.customization_menu");
 
 	sdk.hook(set_is_invisible_method, function(args)
 		this.on_set_is_invisible(sdk.to_managed_object(args[1]));

@@ -2,6 +2,7 @@ local this = {};
 
 local utils;
 local config;
+local customization_menu;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -120,7 +121,7 @@ function this.on_post_timeout_matchmaking()
 		session_manager = sdk.get_managed_singleton("snow.SnowSessionManager");
 
 		if session_manager == nil then
-			log.info("[Better Matchmaking] No session manager");
+			customization_menu.status = "[timeout_fix.on_post_timeout_matchmaking] No session_manager";
 			return;
 		end
 	end
@@ -182,6 +183,11 @@ function this.on_req_matchmaking(quest_id)
 		skip_next_hook = false;
 		return;
 	end
+	
+	if quest_id == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking] No quest_id";
+		return;
+	end
 
 	quest_type = quest_types.regular;
 	quest_type.quest_id = quest_id;
@@ -193,6 +199,11 @@ function this.on_req_matchmaking_random(my_hunter_rank)
 		return;
 	end
 	
+	if my_hunter_rank == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking] No my_hunter_rank";
+		return;
+	end
+	
 	quest_type = quest_types.random;
 	quest_type.my_hunter_rank = my_hunter_rank;
 end
@@ -200,6 +211,21 @@ end
 function this.on_req_matchmaking_rampage(difficulty, quest_level_pointer, target_enemy_pointer)
 	if skip_next_hook then
 		skip_next_hook = false;
+		return;
+	end
+	
+	if difficulty == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_rampage] No difficulty";
+		return;
+	end
+
+	if quest_level_pointer == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_rampage] No quest_level_pointer";
+		return;
+	end
+
+	if target_enemy_pointer == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_rampage] No target_enemy_pointer";
 		return;
 	end
 	
@@ -227,6 +253,16 @@ function this.on_req_matchmaking_random_master_rank(my_hunter_rank, my_master_ra
 		return;
 	end
 	
+	if my_hunter_rank == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_master_rank] No my_hunter_rank";
+		return;
+	end
+
+	if my_master_rank == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_master_rank] No my_master_rank";
+		return;
+	end
+	
 	quest_type = quest_types.random_master_rank;
 	quest_type.my_hunter_rank = my_hunter_rank;
 	quest_type.my_master_rank = my_master_rank;
@@ -235,6 +271,21 @@ end
 function this.on_req_matchmaking_random_anomaly(my_hunter_rank, my_master_rank, anomaly_research_level)
 	if skip_next_hook then
 		skip_next_hook = false;
+		return;
+	end
+
+	if my_hunter_rank == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_anomaly] No my_hunter_rank";
+		return;
+	end
+
+	if my_master_rank == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_anomaly] No my_master_rank";
+		return;
+	end
+
+	if anomaly_research_level == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_anomaly] No anomaly_research_level";
 		return;
 	end
 	
@@ -247,6 +298,36 @@ end
 function this.on_req_matchmaking_random_anomaly_quest(min_level, max_level, party_limit, enemy_id_pointer, reward_item, is_special_random_mystery)
 	if skip_next_hook then
 		skip_next_hook = false;
+		return;
+	end
+
+	if min_level == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_anomaly_quest] No min_level";
+		return;
+	end
+
+	if max_level == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_anomaly_quest] No max_level";
+		return;
+	end
+
+	if party_limit == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_anomaly_quest] No party_limit";
+		return;
+	end
+
+	if enemy_id_pointer == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_anomaly_quest] No enemy_id_pointer";
+		return;
+	end
+
+	if reward_item == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_anomaly_quest] No reward_item";
+		return;
+	end
+
+	if is_special_random_mystery == nil then
+		customization_menu.status = "[timeout_fix.on_req_matchmaking_random_anomaly_quest] No is_special_random_mystery";
 		return;
 	end
 
@@ -274,18 +355,15 @@ function this.on_req_online()
 	return sdk.PreHookResult.SKIP_ORIGINAL;
 end
 
-local network_util_type_def = sdk.find_type_definition("snow.network.Util");
-local get_re_and_lib_version_method = network_util_type_def:get_method("getReAndLibVersion");
-local tostring_error_method = network_util_type_def:get_method("toString_Error(via.network.Error)");
-
-local make_error_code_method = session_manager_type_def:get_method("makeErrorCode(via.network.Error)");
-
 function this.init_module()
 	config = require("Better_Matchmaking.config");
 	utils = require("Better_Matchmaking.utils");
+	customization_menu = require("Better_Matchmaking.customization_menu");
 
-	sdk.hook(on_timeout_matchmaking_method, function(args) end,
+	sdk.hook(on_timeout_matchmaking_method,
+	function(args) end,
 	function(retval)
+
 		this.on_post_timeout_matchmaking();
 		return retval;
 	end);
@@ -295,9 +373,11 @@ function this.init_module()
 	--	System.UInt32 						questID
 	--)
 	sdk.hook(req_matchmaking_method, function(args)
+		
 		local quest_id = sdk.to_int64(args[3]) & 0xFFFFFFFF;
 
 		this.on_req_matchmaking(quest_id);
+
 	end, function(retval)
 		return retval;
 	end);
@@ -307,9 +387,11 @@ function this.init_module()
 	--	System.UInt32 						myHunterRank
 	--)
 	sdk.hook(req_matchmaking_random_method, function(args)
+		
 		local my_hunter_rank = sdk.to_int64(args[3]) & 0xFFFFFFFF;
 
 		this.on_req_matchmaking_random(my_hunter_rank);
+
 	end, function(retval)
 		return retval;
 	end);
@@ -321,11 +403,13 @@ function this.init_module()
 	--	System.Nullable`1<System.UInt32>	targetEnemy
 	--)
 	sdk.hook(req_matchmaking_hyakuryu_method, function(args)
+		
 		local difficulty = sdk.to_int64(args[3]) & 0xFFFFFFFF;
 		local quest_level = args[4];
 		local target_enemy = args[5];
 
 		this.on_req_matchmaking_rampage(difficulty, quest_level, target_enemy);
+
 	end, function(retval)
 		return retval;
 	end);
@@ -336,10 +420,12 @@ function this.init_module()
 	--	System.UInt32						myMasterRank
 	--)
 	sdk.hook(req_matchmaking_random_master_rank_method, function(args)
+		
 		local my_hunter_rank = sdk.to_int64(args[3]) & 0xFFFFFFFF;
 		local my_master_rank = sdk.to_int64(args[4]) & 0xFFFFFFFF;
 
 		this.on_req_matchmaking_random_master_rank(my_hunter_rank, my_master_rank);
+
 	end, function(retval)
 		return retval;
 	end);
@@ -351,11 +437,13 @@ function this.init_module()
 	--	System.UInt32						myMasterRank (it is actually anomaly research level)
 	--)
 	sdk.hook(req_matchmaking_random_mystery_method, function(args)
+	
 		local my_hunter_rank = sdk.to_int64(args[3]) & 0xFFFFFFFF;
 		local my_master_rank = sdk.to_int64(args[4]) & 0xFFFFFFFF;
 		local anomaly_research_level = sdk.to_int64(args[5]) & 0xFFFFFFFF;
 
 		this.on_req_matchmaking_random_anomaly(my_hunter_rank, my_master_rank, anomaly_research_level);
+
 	end, function(retval)
 		return retval;
 	end);
@@ -370,6 +458,7 @@ function this.init_module()
 	--	System.Boolean						isSpecialRandomMystery
 	--)
 	sdk.hook(req_matchmaking_random_mystery_quest_method, function(args)
+		
 		local lv_min = sdk.to_int64(args[3]) & 0xFFFFFFFF;
 		local lv_max = sdk.to_int64(args[4]) & 0xFFFFFFFF;
 		local limit = sdk.to_int64(args[5]) & 0xFFFFFFFF;
@@ -378,6 +467,7 @@ function this.init_module()
 		local is_special_random_mystery = (sdk.to_int64(args[8]) & 1) == 1;
 
 		this.on_req_matchmaking_random_anomaly_quest( lv_min, lv_max, limit, enemy_id, reward_item, is_special_random_mystery);
+		
 	end, function(retval)
 		return retval;
 	end);

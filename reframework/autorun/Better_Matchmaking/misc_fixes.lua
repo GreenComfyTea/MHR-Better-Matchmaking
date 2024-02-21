@@ -2,6 +2,7 @@ local this = {};
 
 local utils;
 local config;
+local customization_menu;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -71,15 +72,22 @@ function this.on_set_open_network_error_window_selection(gui_manager)
 		quest_manager = sdk.get_managed_singleton("snow.QuestManager");
 
 		if quest_manager == nil then
-			log.info("[Better Matchmaking] quest manager");
+			customization_menu.status = "[misc_fixes.on_set_open_network_error_window_selection] No Quest Manager";
 			return;
 		end
 	end
 
 	local is_play_quest = is_play_quest_method:call(quest_manager);
+	
+	if is_play_quest == nil then
+		customization_menu.status = "[misc_fixes.on_set_open_network_error_window_selection] No is_play_quest";
+		return;
+	end
+
 	local is_end_wait = is_end_wait_method:call(quest_manager);
 
-	if is_end_wait == nil or is_play_quest == nil then
+	if is_end_wait == nil then
+		customization_menu.status = "[misc_fixes.on_set_open_network_error_window_selection] No is_end_wait";
 		return;
 	end
 
@@ -110,6 +118,7 @@ end
 function this.init_module()
 	config = require("Better_Matchmaking.config");
 	utils = require("Better_Matchmaking.utils");
+	customization_menu = require("Better_Matchmaking.customization_menu");
 
 	sdk.hook(req_online_warning_method, function(args) 
 		return this.on_req_online_warning();
