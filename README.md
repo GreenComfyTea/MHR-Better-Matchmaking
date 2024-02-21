@@ -1,6 +1,6 @@
 <p align="center">
 	<h2 align="center"><b>"Better Matchmaking" Mod for Monster Hunter: Rise</b></h2>
-	<p align="center">Mod that fixes Region Lock and improves matchmaking experience.</p>
+	<p align="center">Mod that fixes Region Lock, Language Filter and improves matchmaking experience.</p>
 </p>
 
 <p align="center">
@@ -33,11 +33,11 @@
 		<img alt="Platform" src="https://custom-icon-badges.demolab.com/badge/platform-win%20%7C%20linux%20%7C%20steam%20deck-blue?logo=device-desktop" />
 	</a>
 	<a href="">
-		<img alt="Maintenance" src="https://custom-icon-badges.demolab.com/maintenance/yes/2023?logo=tools" />
+		<img alt="Maintenance" src="https://custom-icon-badges.demolab.com/maintenance/yes/2024?logo=tools" />
 	</a>
 	<br>
 	<a href="https://www.nexusmods.com/monsterhunterrise/mods/26">
-		<img alt="REFramework Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20v1.605%2B-brightgreen?logo=package-dependencies" />
+		<img alt="REFramework Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20v1.617%2B-brightgreen?logo=package-dependencies" />
 	</a>
    	<a href="https://www.nexusmods.com/monsterhunterrise/mods/1292">
 		<img alt="In-Game Menu  Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-Custom%20In--Game%20Mod%20Menu%20API%20v1.71%2B-brightgreen?logo=package-dependencies" />
@@ -126,7 +126,7 @@
 * **[Nexus Mods](https://www.nexusmods.com/monsterhunterrise/mods/1044)**  
 
 # Requirements
-1. [REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26) (v1.503+);
+1. [REFramework](https://www.nexusmods.com/monsterhunterrise/mods/26) (v1.617+);
 2. [Optional] [Custom In-Game Mod Menu API](https://www.nexusmods.com/monsterhunterrise/mods/1292) (v1.71+).
 
 # How to install:
