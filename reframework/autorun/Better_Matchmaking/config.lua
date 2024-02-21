@@ -88,11 +88,11 @@ function this.init()
 		region_lock_fix = {
 			join_requests = {
 				enabled = true,
-				distance_filter = "Far"
+				distance_filter = "Worldwide"
 			},
 			lobbies = {
 				enabled = true,
-				distance_filter = "Far"
+				distance_filter = "Worldwide"
 			}
 		},
 
