@@ -118,7 +118,7 @@
 
 <p align="center">
 	<a>
-		<img align="center" src="https://user-images.githubusercontent.com/30152047/183247427-c71bf991-6910-4801-97c0-5e7a537305e7.png" />
+		<img align="center" src="https://github.com/GreenComfyTea/MHR-Better-Matchmaking/assets/30152047/66ac4406-f7b1-4ab0-9f10-1d41c20c27ec" />
 	</a>
 </p>
 
