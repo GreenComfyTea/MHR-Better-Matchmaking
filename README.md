@@ -1,5 +1,5 @@
 <p align="center">
-	<h2 align="center"><b>"Better Matchmaking" Mod for Monster Hunter: Rise</b></h2>
+	<h2 align="center"><b>"Better Matchmaking" Mod for Monster Hunter Rise</b></h2>
 	<p align="center">Mod that fixes Region Lock, Language Filter, 60 Second Timeout and improves matchmaking experience.</p>
 </p>
 
